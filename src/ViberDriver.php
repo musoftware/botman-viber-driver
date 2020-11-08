@@ -316,7 +316,7 @@ class ViberDriver extends HttpDriver
         $payload = $matchingMessage->getPayload();
 
         $user = null;
-
+ 
         $response = $this->sendJsonRequest(
             self::API_ENDPOINT . 'get_user_details',
             ['id' => $personId],
