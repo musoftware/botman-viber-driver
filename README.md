@@ -1,7 +1,7 @@
 # BotMan Viber Driver
 Connect Viber with [BotMan](http://botman.io/)
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/musoftware/botman-viber-driver.svg?style=flat-square)](https://packagist.org/packages/polyskalov/botman-viber-driver)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/musoftware/botman-viber-driver.svg?style=flat-square)](https://packagist.org/packages/musoftware/botman-viber-driver)
 
 
 ## Installation & Setup
