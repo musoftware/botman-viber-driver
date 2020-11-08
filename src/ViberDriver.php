@@ -317,7 +317,7 @@ class ViberDriver extends HttpDriver
 
         $user = null;
 
-        $response = $this->sendRequest(
+        $response = $this->sendJsonRequest(
             self::API_ENDPOINT . 'get_user_details',
             ['id' => $personId],
             $matchingMessage
@@ -355,6 +355,11 @@ class ViberDriver extends HttpDriver
     public function sendRequest($endpoint, array $parameters, IncomingMessage $matchingMessage): Response
     {
         return $this->http->post(self::API_ENDPOINT . $endpoint, [], $parameters, $this->getHeaders());
+    }
+
+    public function sendJsonRequest($endpoint, array $parameters, IncomingMessage $matchingMessage): Response
+    {
+        return $this->http->post(self::API_ENDPOINT . $endpoint, [], $parameters, $this->getHeaders(), true);
     }
 
     /**
