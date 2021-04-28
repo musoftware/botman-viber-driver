@@ -4,8 +4,9 @@ namespace TheArdent\Drivers\Viber\Extensions;
 
 use JsonSerializable;
 
-class MenuTemplate implements JsonSerializable {
-    private $type = 'picture';
+class MenuTemplate implements JsonSerializable
+{
+    private $type = 'rich_media';
 
     /**
      * @var string
@@ -27,7 +28,17 @@ class MenuTemplate implements JsonSerializable {
      * @param string $imageUrl
      * @param string $text
      */
-    public function __construct($text, $imageUrl, $defaultHeight = false) {
+    public function __construct($text, $imageUrl, $defaultHeight = false)
+    {
+        $btn = [
+            "Columns" => 6,
+            "Rows" => 4,
+            "ActionType" => 'none',
+            "ActionBody" => 'none',
+            "Image" => $imageUrl,
+        ];
+        $this->buttons[] = $btn;
+
         $this->text = $text;
         $this->imageUrl = $imageUrl;
         $this->defaultHeight = $defaultHeight;
@@ -36,14 +47,17 @@ class MenuTemplate implements JsonSerializable {
     /**
      * @return array
      */
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
+            "min_api_version" => 2,
             'type' => $this->type,
-            'text' => $this->text,
-            'media' => $this->imageUrl,
-            'keyboard' => [
-                'Type' => 'keyboard',
-                'DefaultHeight' => $this->defaultHeight,
+            "ButtonsGroupColumns" => 6,
+            "ButtonsGroupRows" => 4 + count($this->buttons) - 1,
+            'rich_media' => [
+                'Type' => 'rich_media',
+                "BgColor" => "#FFFFFF",
+                //                'DefaultHeight' => $this->defaultHeight,
                 'Buttons' => $this->buttons
             ]
         ];
@@ -57,15 +71,16 @@ class MenuTemplate implements JsonSerializable {
      *
      * @return ViberMenuTemplate
      */
-    public function addButton($text, $actionType = 'reply', $actionBody = 'reply to me', $textSize = 'regular', $color = null, $width = 6, $silent = false) {
+    public function addButton($text, $actionType = 'reply', $actionBody = 'reply to me', $textSize = 'regular', $color = null, $width = 6, $silent = false)
+    {
         $btn = [
-            "Columns"    => $width,
-			"Rows"       => 1,
+            "Columns" => $width,
+            "Rows" => 1,
             "ActionType" => $actionType,
             "ActionBody" => $actionBody,
-            "Text"       => $text,
-            "TextSize"   => $textSize,
-            "Silent"     => $silent
+            "Text" => $text,
+            "TextSize" => $textSize,
+            "Silent" => $silent
         ];
         if ($color) {
             $btn["BgColor"] = $color;
@@ -73,5 +88,4 @@ class MenuTemplate implements JsonSerializable {
         $this->buttons[] = $btn;
         return $this;
     }
-
 }
