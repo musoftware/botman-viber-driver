@@ -177,7 +177,7 @@ class ViberDriver extends HttpDriver
         } elseif (isset($this->payload->get('message')['text'])) {
             $message = new IncomingMessage(
                 $this->payload->get('message')['text'], $user, $this->getBotId(),
-                $this->payload ß
+                $this->payload 
             );
         } else {
             $message = new IncomingMessage('', $user, $this->getBotId(), $this->payload);
